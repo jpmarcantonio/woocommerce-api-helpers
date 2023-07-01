@@ -16,8 +16,8 @@ import csv
 
 wcapi = API(
     url = "http://localhost:8888/mysite2/",
-    consumer_key = "ck_fa8d93d1dbcbbe5286a55de58351e3f00d436113",
-    consumer_secret = "cs_69243b1b2399551b9c9afa2269d8d3aac07f517c",
+    consumer_key = "<consumer key>",
+    consumer_secret = "<consumer secret>",
     version = "wc/v3"
 )
 
