@@ -9,7 +9,6 @@ Write a script that will get a list of all users for the website.
 Your script should output a csv file with list of email addresses.
 """
 
-import requests
 from woocommerce import API
 import csv
 
@@ -20,13 +19,20 @@ wcapi = API(
     version = "wc/v3"
 )
 
-customers = (wcapi.get("customers"))
-output_file = 'list_of_user_email.csv'
-
+page = 1
 email_list = []
-for customer in customers.json():
-    customer_email = customer["email"]
-    email_list.append([customer_email])
+while True:
+    r = wcapi.get("customers", params={"per_page": 100, "page": page})
+    customers = r.json()
+    output_file = 'list_of_user_email.csv'
+
+    page += 1
+    if not customers:
+        break
+
+    for customer in customers:
+        customer_email = customer["email"]
+        email_list.append([customer_email])
 
 with open(output_file, 'w', newline= '') as f:
     writer = csv.writer(f)
